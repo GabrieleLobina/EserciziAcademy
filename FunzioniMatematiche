@@ -1,0 +1,94 @@
+import string
+from numpy import mean
+from random import randint
+
+
+     
+class LunghezzaParole(object):
+    def __init__(self, lista):
+        self.len_parole = [len(parola) for parola in lista]
+        
+
+class Area(object):
+    def __init__(self, figura="Quadrato", lato1=1, lato2=0):
+        self.figura, self.lato1, self.lato2 = figura, lato1, lato2
+        self.area = self.calcola_area()
+    
+    def calcola_area(self):
+        if self.figura.lower() == "quadrato":
+            self.area = self.lato1**2
+        if self.figura.lower() == "rettangolo":
+            self.area = self.lato1*self.lato2
+        return self.area
+
+
+class Casual(object):
+    def __init__(self):
+        self.password = self.password_generator()
+
+    def password_generator(self):
+        random_numbers = []
+        caratteri_random = ""
+        while len(random_numbers) != 8:
+            numb = randint(1, 52)
+            if numb not in random_numbers:
+                random_numbers.append(numb)
+                caratteri_random += string.ascii_letters[numb]
+        return caratteri_random
+
+
+class Media(object):
+    def __init__(self, lista):
+        self.media = mean(lista)
+
+
+class Maggiore(object):
+    def __init__(self, lista):
+        self.maggiore = max(lista)
+
+
+class Moltiplicatore(object):
+    def __init__(self, lista, valore):
+        self.molt = list(map(lambda x: x * valore, lista)) 
+
+
+class Menù(object):
+    
+    def lunghezza_parole(self, lista):    
+        return LunghezzaParole(lista).len_parole
+
+
+    def area(self, figura="Quadrato", lato1=1, lato2=0):
+        return Area(figura=figura, lato1=lato1, lato2=lato2).area
+
+
+    def casual(self):
+        return Casual().password
+
+
+    def calcola_media(self, lista):
+        return Media(lista=lista).media
+
+
+    def restituisci_maggiore(self, lista):
+        return Maggiore(lista=lista).maggiore
+
+
+    def moltiplica(self, lista, valore):
+        return Moltiplicatore(lista=lista, valore=valore).molt
+
+
+class FunzioniMatematiche(Menù):
+    def __init__(self):
+        pass
+
+
+if __name__ == "__main__":
+    test = FunzioniMatematiche()
+    print(f'Calcolo area quadrato:\n{test.area(lato1=3)}')
+    print(f'\nCalcolo lunghezza parole della lista:\n{test.lunghezza_parole(lista=["bau", "aaaaaaa", "u"])}')
+    print(f'\nCalcolo media dei valori nella lista:\n{test.calcola_media(lista=[0, 10])}')
+    print(f'\nGenerazione di 8 caratteri casuali:\n{test.casual()}')
+    print(f'\nMoltiplicazioni elemneti lista per un valore:\n{test.moltiplica(lista=[1, 2, 3, 4, 5], valore=2)}')
+    print(f'\nCalcolo valore maggiore nella lista:\n{test.restituisci_maggiore(lista=[1, 2, 3, 4, 5])}')
+    
